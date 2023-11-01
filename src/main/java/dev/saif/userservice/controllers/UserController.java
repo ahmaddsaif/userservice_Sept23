@@ -25,41 +25,61 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
-    public ResponseEntity signUp(@RequestBody UserDto userDto) {
-        try {
-            return ResponseEntity.ok(userService.createUser(userDto));
-        } catch (UserAlreadyExistsException userAlreadyExistsException) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(new NonOkDto("Email already exists"));
-        } catch (Exception e) {
-            System.out.println(e);
-            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(new NonOkDto("Internal server error"));
-        }
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long id) {
+//        try {
+//            return ResponseEntity.ok(userService.getUserById(id));
+//        } catch (Exception e) {
+//            System.out.println(e);
+//            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(new NonOkDto("Internal server error"));
+//        }
+//    }
 
-    @PostMapping("/login")
-    public ResponseEntity login(@RequestBody UserDto userDto)
-            throws EmailNotFoundException, WrongPasswordException {
-        try {
-            return ResponseEntity.ok(userService.login(userDto));
-        } catch (EmailNotFoundException | WrongPasswordException invalidCredentialsException) {
-            return ResponseEntity.status(HttpStatusCode.valueOf(401)).build();
-        } catch (Exception e) {
-            System.out.println(e);
-            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(new NonOkDto("Internal server error"));
-        }
-    }
+//    @PostMapping("/{id}/roles")
+//    public ResponseEntity<UserDto> setUserRoles(@PathVariable("id") Long id, @RequestBody String roleName) {
+//        try {
+//            return ResponseEntity.ok(userService.addRoleToUser(id, roleName));
+//        } catch (Exception e) {
+//            System.out.println(e);
+//            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(new NonOkDto("Internal server error"));
+//        }
+//    }
 
-    @PostMapping("/logout/{token}")
-    public ResponseEntity logout(@PathVariable("token") String token) throws TokenNotFoundException {
-        try {
-            userService.logout(token);
-        } catch (TokenNotFoundException tokenNotFoundException) {
-            return ResponseEntity.status(HttpStatusCode.valueOf(498)).body(new NonOkDto("Invalid token"));
-        } catch (Exception e) {
-            System.out.println(e);
-            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(new NonOkDto("Internal server error"));
-        }
-        return ResponseEntity.ok().build();
-    }
+//    @PostMapping
+//    public ResponseEntity signUp(@RequestBody UserDto userDto) {
+//        try {
+//            return ResponseEntity.ok(userService.createUser(userDto));
+//        } catch (UserAlreadyExistsException userAlreadyExistsException) {
+//            return ResponseEntity.status(HttpStatus.CONFLICT).body(new NonOkDto("Email already exists"));
+//        } catch (Exception e) {
+//            System.out.println(e);
+//            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(new NonOkDto("Internal server error"));
+//        }
+//    }
+
+//    @PostMapping("/login")
+//    public ResponseEntity login(@RequestBody UserDto userDto)
+//            throws EmailNotFoundException, WrongPasswordException {
+//        try {
+//            return ResponseEntity.ok(userService.login(userDto));
+//        } catch (EmailNotFoundException | WrongPasswordException invalidCredentialsException) {
+//            return ResponseEntity.status(HttpStatusCode.valueOf(401)).build();
+//        } catch (Exception e) {
+//            System.out.println(e);
+//            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(new NonOkDto("Internal server error"));
+//        }
+//    }
+
+//    @PostMapping("/logout/{token}")
+//    public ResponseEntity logout(@PathVariable("token") String token) throws TokenNotFoundException {
+//        try {
+//            userService.logout(token);
+//        } catch (TokenNotFoundException tokenNotFoundException) {
+//            return ResponseEntity.status(HttpStatusCode.valueOf(498)).body(new NonOkDto("Invalid token"));
+//        } catch (Exception e) {
+//            System.out.println(e);
+//            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(new NonOkDto("Internal server error"));
+//        }
+//        return ResponseEntity.ok().build();
+//    }
 }

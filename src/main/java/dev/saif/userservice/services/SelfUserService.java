@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
 
 @Service("selfUserService")
@@ -29,7 +30,7 @@ public class SelfUserService implements UserService{
     @Override
     public UserDto createUser(UserDto userDto) throws UserAlreadyExistsException {
         User user = convertDtoToUser(userDto);
-        User foundUser = userRepository.findByEmailIgnoreCase(user.getEmail());
+        Optional<User> foundUser = userRepository.findByEmail(user.getEmail());
         if(foundUser != null) {
             throw new UserAlreadyExistsException("User already exists");
         }
@@ -40,43 +41,43 @@ public class SelfUserService implements UserService{
     @Override
     public SessionDto login(UserDto userDto) throws EmailNotFoundException, WrongPasswordException {
         User user = convertDtoToUser(userDto);
-        User foundUser = userRepository.findByEmailIgnoreCase(user.getEmail());
+        Optional<User> foundUser = userRepository.findByEmail(user.getEmail());
 
-        if(foundUser == null || !Objects.equals(user.getPassword(), foundUser.getPassword())) {
-            throw new EmailNotFoundException("Email not found");
-        }
-        if(!Objects.equals(foundUser.getPassword(), user.getPassword())) {
-            throw new WrongPasswordException("Invalid password");
-        }
+//        if(foundUser == null || !Objects.equals(user.getPassword(), foundUser.getPassword())) {
+//            throw new EmailNotFoundException("Email not found");
+//        }
+//        if(!Objects.equals(foundUser.getPassword(), user.getPassword())) {
+//            throw new WrongPasswordException("Invalid password");
+//        }
 
         String token = generateAlphanumericToken(10);
         Session session = new Session();
         session.setToken(token);
-        session.setUser(foundUser);
+        session.setUser(user);
         Session createdSession = sessionRepository.save(session);
         return convertSessionToSessionDto(createdSession);
     }
 
     @Override
     public void logout(String token) throws TokenNotFoundException {
-        Session session = sessionRepository.findByToken(token);
-        if(session != null)
-            sessionRepository.delete(session);
-        else
-            throw new TokenNotFoundException("Invalid token");
+//        Session session = sessionRepository.findByToken(token);
+//        if(session != null)
+//            sessionRepository.delete(session);
+//        else
+//            throw new TokenNotFoundException("Invalid token");
     }
 
     private User convertDtoToUser(UserDto userDto) {
         User user = new User();
         user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
+//        user.setPassword(userDto.getPassword());
         return user;
     }
 
     private UserDto convertUserToUserDto(User user) {
         UserDto userDto = new UserDto();
         userDto.setEmail(user.getEmail());
-        userDto.setPassword(user.getPassword());
+//        userDto.setPassword(user.getPassword());
         return userDto;
     }
 

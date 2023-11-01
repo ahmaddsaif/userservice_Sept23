@@ -5,16 +5,18 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
+
 @Getter
 @Setter
-@Entity(name = "session")
-public class Session {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "session_id", nullable = false)
-    private Long id;
+@Entity
+public class Session extends BaseModel{
     private String token;
+    private Date expiringAt;
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+    @Enumerated(EnumType.ORDINAL)
+    private SessionStatus status;
 }

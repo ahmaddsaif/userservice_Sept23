@@ -5,19 +5,17 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-@Entity(name = "user")
+@Entity
 @Getter
 @Setter
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class User extends BaseModel{
     private String email;
     private String password;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Session> sessions;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Set<Role> roles = new HashSet<>();
 }
