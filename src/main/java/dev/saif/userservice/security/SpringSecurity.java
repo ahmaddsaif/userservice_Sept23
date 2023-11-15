@@ -9,22 +9,22 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SpringSecurity {
 //    // Create security filter chain
-    @Bean
-    public SecurityFilterChain filteringCriteria(HttpSecurity http) throws Exception {
-//        http.cors().disable();
-//        http.csrf().disable();
-//        http.authorizeHttpRequests().anyRequest().permitAll();
-//        return http.authorizeHttpRequests((authorize) -> authorize
-//                .anyRequest().authenticated()).build();
-//        http
-//                .authorizeHttpRequests((authorize) -> authorize
-//                        .requestMatchers("/signup").hasAuthority("USER")
-//                        .anyRequest().authenticated()
-//                );
-        // ...
-
-        return http.build();
-    }
+//    @Bean
+//    public SecurityFilterChain filteringCriteria(HttpSecurity http) throws Exception {
+////        http.cors().disable();
+////        http.csrf().disable();
+////        http.authorizeHttpRequests().anyRequest().permitAll();
+////        return http.authorizeHttpRequests((authorize) -> authorize
+////                .anyRequest().authenticated()).build();
+////        http
+////                .authorizeHttpRequests((authorize) -> authorize
+////                        .requestMatchers("/signup").hasAuthority("USER")
+////                        .anyRequest().authenticated()
+////                );
+//        // ...
+//
+//        return http.build();
+//    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {

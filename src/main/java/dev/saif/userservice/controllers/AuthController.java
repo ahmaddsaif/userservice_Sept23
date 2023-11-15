@@ -22,10 +22,10 @@ public class AuthController {
         return authService.signUp(signupRequest.getEmail(), signupRequest.getPassword());
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<UserDto> login(@RequestBody LoginRequestDto loginRequest) {
-//        return authService.login(loginRequest.getEmail(), loginRequest.getPassword());
-//    }
+    @PostMapping("/login")
+    public ResponseEntity<UserDto> login(@RequestBody LoginRequestDto loginRequest) {
+        return authService.login(loginRequest.getEmail(), loginRequest.getPassword());
+    }
 
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(@RequestBody LogoutRequestDto logoutRequest) {
